@@ -1,0 +1,21 @@
+{
+  "name": "webgl sketchbook",
+  "description": "webgl sketchbook",
+  "main": "gulpfile.js",
+  "authors": [
+    "Bogdan Cernat <cernat.bogdan.stefan@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "tinycolor": "^1.3.0",
+    "three.js": "threejs#*"
+  }
+}
