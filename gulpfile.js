@@ -25,6 +25,7 @@ gulp.task('serve', () => {
 gulp.task('vendor', () => {
   return gulp.src([
     'bower_components/tinycolor/dist/tinycolor-min.js',
+    'bower_components/raf.js/raf.min.js',
     'bower_components/three.js/build/three.js'
   ]).pipe(concat('vendor.js'))
     .pipe(uglify())

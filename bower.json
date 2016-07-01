@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "tinycolor": "^1.3.0",
-    "three.js": "threejs#*"
+    "three.js": "threejs#*",
+    "raf.js": "^0.0.4"
   }
 }
