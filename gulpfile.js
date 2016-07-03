@@ -17,7 +17,8 @@ var production = process.env.NODE_ENV === 'production';
 
 const dependencies = [
     'three',
-    'three-orbit-controls'
+    'three-orbit-controls',
+    'stats.js'
 ];
 
 

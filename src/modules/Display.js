@@ -1,5 +1,6 @@
 import THREE from 'three';
 import OrbitControls from 'three-orbit-controls';
+import Stats from 'stats.js';
 
 let instance = null;
 
@@ -66,6 +67,11 @@ class Display {
 
         this.scene.add(this.mainDirectionalLight);
 
+        // stats
+        this.stats = new Stats();
+        this.stats.showPanel(0);
+        document.body.appendChild(this.stats.dom);
+
         // window resize event
         window.addEventListener('resize', (event) => {
             this.size = {
@@ -80,8 +86,12 @@ class Display {
     }
 
     animate() {
-        requestAnimationFrame(this.animate.bind(this));
+        this.stats.begin();
+
         this.renderer.render(this.scene, this.camera);
+
+        this.stats.end();
+        requestAnimationFrame(this.animate.bind(this));
     }
 
     getScene() {

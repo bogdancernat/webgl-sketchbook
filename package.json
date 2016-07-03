@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "babelify": "^7.3.0",
+    "stats.js": "^0.16.0",
     "three": "^0.78.0",
     "three-orbit-controls": "^72.0.0",
     "watchify": "^3.7.0"
