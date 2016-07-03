@@ -1,51 +1,20 @@
 "use strict";
 
-let scene, camera, renderer, light;
+import THREE from 'three';
+import { Display } from './modules/Display';
 
-init();
-animate();
+document.addEventListener("DOMContentLoaded", function() {
+    let display = new Display();
+    display.init();
 
-function init() {
-    // scene
-    scene = new THREE.Scene();
-
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-
-    // renderer
-    renderer = new THREE.WebGLRenderer({
-        antialias: true
+    var geo = new THREE.BoxGeometry(1, 1, 1)
+    var mat = new THREE.MeshLambertMaterial({
+        wireframe: false,
+        color: 0xe0e2e4,
+        shading: THREE.SmoothShading
     });
 
-    renderer.setSize(width, height);
-    renderer.setClearColor(new THREE.Color(0x3F3F47), 0.7);
-
-    document.body.appendChild(renderer.domElement);
-
-    // camera
-    camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 20000);
-    camera.position.set(0, 6, 0);
-
-    scene.add(camera);
-
-    // resize event
-    window.addEventListener('resize', (event) => {
-        let width = window.innerWidth;
-        let height = window.innerHeight;
-
-        renderer.setSize(width, height);
-
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-    });
-
-    // light
-    light = new THREE.PointLight(0xffffff);
-    light.position.set(-100, 200, 100);
-    scene.add(light);
-}
-
-function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-}
+    var box = new THREE.Mesh(geo, mat)
+    box.castShadow = true;
+    display.scene.add(box);
+});
