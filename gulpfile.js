@@ -31,6 +31,8 @@ gulp.task('vendor', () => {
     return gulp.src([
             'bower_components/tinycolor/dist/tinycolor-min.js',
             'bower_components/raf.js/raf.min.js',
+            'bower_components/dat.gui/dat.gui.min.js',
+            'bower_components/dat.gui/dat.color.min.js',
         ]).pipe(concat('vendor.js'))
         .pipe(gulpif(production, uglify({
             mangle: false
