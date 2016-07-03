@@ -29,43 +29,48 @@ class Display {
         this.scene = new THREE.Scene();
 
         // renderer
-        this.renderer = new THREE.WebGLRenderer({
+        let renderer = new THREE.WebGLRenderer({
             antialias: true
         });
 
-        this.renderer.setSize(this.width, this.height);
+        this.renderer = renderer;
+
+        renderer.setSize(this.width, this.height);
+
         this._updateClearColor();
 
         // enable shading
-        this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMapSoft = true;
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMapSoft = true;
 
-        document.body.appendChild(this.renderer.domElement);
-
+        document.body.appendChild(renderer.domElement);
         // camera
-        this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 10000);
-        this.camera.position.set(0, 3, 3);
-        this.camera.lookAt(new THREE.Vector3(0, 0, 0));
+        let camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 10000);
+        camera.position.set(0, 3, 3);
+        camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-        this.scene.add(this.camera);
+        this.scene.add(camera);
+        this.camera = camera
 
         // controls
         this.controls = new Controls(this.camera);
 
         // lights
-        this.mainGlobalLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
-        this.mainGlobalLight.color.setHSL(0.6, 1, 0.6);
-        this.mainGlobalLight.groundColor.setHSL(0.095, 1, 0.75);
-        this.mainGlobalLight.position.set(0, 500, 0);
+        let mainGlobalLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
+        mainGlobalLight.color.setHSL(0.6, 1, 0.6);
+        mainGlobalLight.groundColor.setHSL(0.095, 1, 0.75);
+        mainGlobalLight.position.set(0, 500, 0);
 
-        this.scene.add(this.mainGlobalLight);
+        this.scene.add(mainGlobalLight);
+        this.mainGlobalLight = mainGlobalLight;
 
-        this.mainDirectionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        this.mainDirectionalLight.color.setHSL(0.1, 1, 0.95);
-        this.mainDirectionalLight.position.set(-1, 1.75, 1);
-        this.mainDirectionalLight.position.multiplyScalar(50);
+        let mainDirectionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        mainDirectionalLight.color.setHSL(0.1, 1, 0.95);
+        mainDirectionalLight.position.set(-1, 1.75, 1);
+        mainDirectionalLight.position.multiplyScalar(50);
 
-        this.scene.add(this.mainDirectionalLight);
+        this.scene.add(mainDirectionalLight);
+        this.mainDirectionalLight = mainDirectionalLight;
 
         // stats
         this.stats = new Stats();
@@ -82,23 +87,23 @@ class Display {
 
         this.initialized = true;
 
-        this.animate();
+        this._animate();
     }
 
-    animate() {
+    _animate() {
         this.stats.begin();
 
         this.renderer.render(this.scene, this.camera);
 
         this.stats.end();
-        requestAnimationFrame(this.animate.bind(this));
+        requestAnimationFrame(this._animate.bind(this));
     }
 
-    getScene() {
+    get mainScene() {
         return this.scene;
     }
 
-    getCamera() {
+    get mainCamera() {
         return this.camera;
     }
 
@@ -125,7 +130,7 @@ class Display {
     set clearColorAlpha(alpha) {
         this._clearColorAlpha = alpha;
 
-        _updateClearColor();
+        this._updateClearColor();
     }
 
     get clearColor() {
@@ -134,12 +139,11 @@ class Display {
 
     set clearColor(color) {
         this._clearColor = color;
-
-        _updateClearColor();
+        this._updateClearColor();
     }
 
     _updateClearColor() {
-        this.renderer.setClearColor(this.clearColor, this.clearColorAlpha);
+        this.renderer.setClearColor(this._clearColor, this._clearColorAlpha);
     }
 }
 
